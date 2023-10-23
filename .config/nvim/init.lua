@@ -23,7 +23,7 @@ require("lazy").setup({
     },
     {
 	"navarasu/onedark.nvim",
-	style="warm"
+	style="dark"
     },
     {
 	"nvim-treesitter/nvim-treesitter",
@@ -31,7 +31,19 @@ require("lazy").setup({
 	config = function ()
 	    local configs = require("nvim-treesitter.configs")
 	    configs.setup({
-		ensure_installed = { "c", "cpp", "css", "go", "html", "javascript", "json", "lua", "typescript", "vim", "vimdoc" },
+		ensure_installed = {
+            "c",
+            "cpp",
+            "css",
+            "go",
+            "html",
+            "javascript",
+            "json",
+            "lua",
+            "typescript",
+            "vim",
+            "vimdoc"
+        },
 		sync_install = false,
 		highlight = { enable = true },
 		indent = { enable = true },
@@ -84,3 +96,43 @@ require('mason-lspconfig').setup({
         lsp_zero.default_setup,
     },
 })
+
+local lspconfig = require('lspconfig')
+
+lspconfig.lua_ls.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using
+        -- (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {
+          'vim',
+          'require'
+        },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
+vim.opt.nu = true
+vim.opt.relativenumber = true
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.scrolloff = 8
+vim.opt.colorcolumn = "80"
+vim.opt.wrap = false
