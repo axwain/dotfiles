@@ -35,7 +35,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 #exec --no-startup-id nm-applet
 
 exec_always feh --no-fehbg --bg-fill ~/wallpapers/abstract-cube.png
-exec picom -b
+exec picom -b --config ~/.config/picom.conf
 exec polybar -r
 
 # Use pactl to adjust volume in PulseAudio.
