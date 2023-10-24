@@ -15,40 +15,39 @@ vim.g.mapleader = " "
 
 require("lazy").setup({
     {
-	"nvim-telescope/telescope.nvim",
-	branch = "0.1.x",
-	dependencies = {
-	    "nvim-lua/plenary.nvim"
-	}
+	    "nvim-telescope/telescope.nvim",
+	    branch = "0.1.x",
+	    dependencies = {
+	        "nvim-lua/plenary.nvim"
+	    }
     },
     {
-	"navarasu/onedark.nvim",
-	style="dark"
+	    "navarasu/onedark.nvim"
     },
     {
-	"nvim-treesitter/nvim-treesitter",
-	build = ":TSUpdate",
-	config = function ()
-	    local configs = require("nvim-treesitter.configs")
-	    configs.setup({
-		ensure_installed = {
-            "c",
-            "cpp",
-            "css",
-            "go",
-            "html",
-            "javascript",
-            "json",
-            "lua",
-            "typescript",
-            "vim",
-            "vimdoc"
-        },
-		sync_install = false,
-		highlight = { enable = true },
-		indent = { enable = true },
-	    })
-	end
+	    "nvim-treesitter/nvim-treesitter",
+	    build = ":TSUpdate",
+	    config = function ()
+	        local configs = require("nvim-treesitter.configs")
+	        configs.setup({
+		        ensure_installed = {
+                    "c",
+                    "cpp",
+                    "css",
+                    "go",
+                    "html",
+                    "javascript",
+                    "json",
+                    "lua",
+                    "typescript",
+                    "vim",
+                    "vimdoc"
+                },
+		        sync_install = false,
+		        highlight = { enable = true },
+		        indent = { enable = true },
+	        })
+	    end
     },
     {'williamboman/mason.nvim'},
     {'williamboman/mason-lspconfig.nvim'},
@@ -126,6 +125,14 @@ lspconfig.lua_ls.setup {
   },
 }
 
+require('onedark').setup({
+    style = 'warm',
+    transparent = true,
+    term_colors = true
+})
+
+require('onedark').load()
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.tabstop = 4
@@ -136,3 +143,4 @@ vim.opt.smartindent = true
 vim.opt.scrolloff = 8
 vim.opt.colorcolumn = "80"
 vim.opt.wrap = false
+vim.opt.termguicolors = true
