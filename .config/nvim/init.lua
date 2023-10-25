@@ -144,3 +144,16 @@ vim.opt.scrolloff = 8
 vim.opt.colorcolumn = "80"
 vim.opt.wrap = false
 vim.opt.termguicolors = true
+
+vim.keymap.set('n', '<leader>w', ':w<CR>', {})
+vim.keymap.set('n', '<leader>q', ':q<CR>', {})
+vim.keymap.set('n', '<leader>Q', ':q!<CR>', {})
+vim.keymap.set('n', '<leader>E', ':Ex<CR>', {})
+vim.keymap.set('n', '<leader>ws', ':sp<CR>', {})
+vim.keymap.set('n', '<leader>wv', ':vsp<CR>', {})
+vim.keymap.set('n', '<leader>wh', ':winc h<CR>', {})
+vim.keymap.set('n', '<leader>wj', ':winc j<CR>', {})
+vim.keymap.set('n', '<leader>wk', ':winc k<CR>', {})
+vim.keymap.set('n', '<leader>wl', ':winc l<CR>', {})
+vim.keymap.set('n', '<leader>nh', ':nohl<CR>', {})
+
