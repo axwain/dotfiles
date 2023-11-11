@@ -204,3 +204,6 @@ client.unfocused        #15091E #401B5B #FBFBFE #9A0CFF #15091E
 client.urgent           #7C2C00 #CA4800 #FBFBFE #CA4800 #CA4800
 client.placeholder      #040606 #233535 #FBFBFE #040606 #233535
 client.background       #233535
+
+for_window [class="tddo-app"] floating enable
+
