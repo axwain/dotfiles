@@ -145,7 +145,7 @@ vim.opt.colorcolumn = "80"
 vim.opt.wrap = false
 vim.opt.termguicolors = true
 
-vim.keymap.set('n', '<leader>w', ':w<CR>', {})
+vim.keymap.set('n', '<leader>W', ':w<CR>', {})
 vim.keymap.set('n', '<leader>q', ':q<CR>', {})
 vim.keymap.set('n', '<leader>Q', ':q!<CR>', {})
 vim.keymap.set('n', '<leader>E', ':Ex<CR>', {})
