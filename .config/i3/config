@@ -33,10 +33,10 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 #exec --no-startup-id nm-applet
-
-exec_always feh --no-fehbg --bg-fill ~/wallpapers/abstract-cube.png
-exec picom -b --config ~/.config/picom.conf
-exec polybar -r
+exec --no-startup-id mpg123 ~/.sounds/startup.mp3 &
+exec_always --no-startup-id feh --no-fehbg --bg-fill ~/wallpapers/abstract-cube.png
+exec --no-startup-id picom -b --config ~/.config/picom.conf
+exec --no-startup-id polybar -r
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -129,17 +129,19 @@ set $ws8 "8:8"
 set $ws9 "9:9"
 set $ws10 "10:10"
 
+set $page_sfx exec --no-startup-id mpg123 ~/.sounds/workspace-switch.mp3 &
+
 # switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $mod+1 workspace $ws1, $page_sfx
+bindsym $mod+2 workspace $ws2, $page_sfx
+bindsym $mod+3 workspace $ws3, $page_sfx
+bindsym $mod+4 workspace $ws4, $page_sfx
+bindsym $mod+5 workspace $ws5, $page_sfx
+bindsym $mod+6 workspace $ws6, $page_sfx
+bindsym $mod+7 workspace $ws7, $page_sfx
+bindsym $mod+8 workspace $ws8, $page_sfx
+bindsym $mod+9 workspace $ws9, $page_sfx
+bindsym $mod+0 workspace $ws10, $page_sfx
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -162,30 +164,43 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+    # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+    # back to normal: Enter or Escape or $mod+r
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+
+mode "launcher" {
+    bindsym 2 exec zathura, mode "default"
+    bindsym 3 exec firefox --private-window, mode "default"
+    bindsym 5 exec thunar, mode "default"
+}
+
+mode "session" {
+    bindsym p exec poweroff
+    bindsym r exec reboot
 }
 
 bindsym $mod+r mode "resize"
+bindsym $mod+g mode "launcher"
+bindsym $mod+p mode "session"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -206,4 +221,13 @@ client.placeholder      #040606 #233535 #FBFBFE #040606 #233535
 client.background       #233535
 
 for_window [class="tddo-app"] floating enable
+
+assign [class="Zathura"] $ws2
+for_window [class="Zathura"] focus
+
+assign [class="firefox"] $ws3
+for_window [class="firefox"] focus
+
+assign [class="Thunar"] $ws5
+for_window [class="Thunar"] focus
 
