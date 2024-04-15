@@ -191,11 +191,19 @@ mode "launcher" {
     bindsym 2 exec zathura, mode "default"
     bindsym 3 exec firefox --private-window, mode "default"
     bindsym 5 exec thunar, mode "default"
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+    bindsym $mod+g mode "default"
 }
 
 mode "session" {
     bindsym p exec poweroff
     bindsym r exec reboot
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+    bindsym $mod+p mode "default"
 }
 
 bindsym $mod+r mode "resize"
