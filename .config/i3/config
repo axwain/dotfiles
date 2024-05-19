@@ -28,15 +28,17 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- dm-tool lock
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 #exec --no-startup-id nm-applet
 exec --no-startup-id mpg123 ~/.sounds/startup.mp3 &
-exec_always --no-startup-id feh --no-fehbg --bg-fill ~/wallpapers/abstract-cube.png
 exec --no-startup-id picom -b --config ~/.config/picom.conf
 exec --no-startup-id polybar -r
+exec --no-startup-id lxpolkit
+exec_always --no-startup-id feh --no-fehbg --bg-fill ~/wallpapers/genshin-arleccino.png
+exec_always --no-startup-id rclone mount GDrive: ~/remote/gdrive
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -44,6 +46,8 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+bindsym Print exec --no-startup-id flameshot gui -p /home/axwain/Pictures/screenshots/
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -56,7 +60,7 @@ tiling_drag modifier titlebar
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec rofi -show combi
@@ -65,6 +69,9 @@ bindsym $mod+d exec rofi -show combi
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+
+# lock screen
+bindsym $mod+Ctrl+l exec dm-tool lock
 
 # change focus
 bindsym $mod+j focus left
@@ -190,7 +197,9 @@ mode "resize" {
 mode "launcher" {
     bindsym 2 exec zathura, mode "default"
     bindsym 3 exec firefox --private-window, mode "default"
+    bindsym 4 exec chromium -incognito, mode "default"
     bindsym 5 exec thunar, mode "default"
+    bindsym v exec code, mode "default"
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
@@ -230,11 +239,17 @@ client.background       #233535
 
 for_window [class="tddo-app"] floating enable
 
+assign [class="Code"] $ws2
+for_window [class="Code"] focus
+
 assign [class="Zathura"] $ws2
 for_window [class="Zathura"] focus
 
 assign [class="firefox"] $ws3
 for_window [class="firefox"] focus
+
+assign [class="Chromium"] $ws4
+for_window [class="Chromium"] focus
 
 assign [class="Thunar"] $ws5
 for_window [class="Thunar"] focus
