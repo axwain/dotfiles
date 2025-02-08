@@ -1,7 +1,9 @@
 #!/bin/bash
 
 HOME_CONFIG=$HOME/.config
-REPO_CONFIG=./.config
+REPO_CONFIG=$(dirname "$0")/.config
+
+echo "Syncing to $REPO_CONFIG"
 
 echo "Syncing .zshrc"
 rsync -a $HOME/.zshrc ./
