@@ -83,6 +83,7 @@ require('mason-lspconfig').setup({
 	"emmet_ls",
 	"eslint",
 	"gopls",
+    "haxe_language_server",
 	"html",
 	"jsonls",
 	"tsserver",

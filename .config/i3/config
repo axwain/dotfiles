@@ -28,7 +28,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- dm-tool lock
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- dm-tool lock
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -37,7 +37,7 @@ exec --no-startup-id mpg123 ~/.sounds/startup.mp3 &
 exec --no-startup-id picom -b --config ~/.config/picom.conf
 exec --no-startup-id polybar -r
 exec --no-startup-id lxpolkit
-exec_always --no-startup-id feh --no-fehbg --bg-fill ~/wallpapers/genshin-arleccino.png
+exec_always --no-startup-id feh --no-fehbg --bg-fill --randomize ~/wallpapers/*
 exec_always --no-startup-id rclone mount GDrive: ~/remote/gdrive
 
 # Use pactl to adjust volume in PulseAudio.
@@ -59,7 +59,7 @@ tiling_drag modifier titlebar
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
-# kill focused window
+# killed window
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
@@ -71,13 +71,13 @@ bindsym $mod+d exec rofi -show combi
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # lock screen
-bindsym $mod+Ctrl+l exec dm-tool lock
+# bindsym $mod+Ctrl+l exec dm-tool lock
 
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+semicolon focus right 
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -121,7 +121,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+#bindsym $mod+d child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -135,6 +135,13 @@ set $ws7 "7:art"
 set $ws8 "8:8"
 set $ws9 "9:9"
 set $ws10 "10:10"
+set $ws11 "11:11"
+set $ws12 "12:12"
+set $ws13 "13:13"
+set $ws14 "14:14"
+
+
+
 
 set $page_sfx exec --no-startup-id mpg123 ~/.sounds/workspace-switch.mp3 &
 
@@ -149,6 +156,11 @@ bindsym $mod+7 workspace $ws7, $page_sfx
 bindsym $mod+8 workspace $ws8, $page_sfx
 bindsym $mod+9 workspace $ws9, $page_sfx
 bindsym $mod+0 workspace $ws10, $page_sfx
+
+bindsym $mod+Ctrl+1 workspace $ws11, $page_sfx
+bindsym $mod+Ctrl+2 workspace $ws12, $page_sfx
+bindsym $mod+Ctrl+3 workspace $ws13, $page_sfx
+bindsym $mod+Ctrl+4 workspace $ws14, $page_sfx
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -195,11 +207,11 @@ mode "resize" {
 }
 
 mode "launcher" {
-    bindsym 2 exec zathura, mode "default"
-    bindsym 3 exec firefox --private-window, mode "default"
-    bindsym 4 exec chromium -incognito, mode "default"
-    bindsym 5 exec thunar, mode "default"
-    bindsym v exec code, mode "default"
+    bindsym 3 exec firefox --private-window, workspace $ws3, mode "default"
+    bindsym 4 exec chromium -incognito, workspace $ws4, mode "default"
+    bindsym 5 exec thunar, workspace $ws5, mode "default"
+    bindsym v exec code, workspace $ws2, mode "default"
+    bindsym a exec --no-startup-id arduino-ide, workspace $ws2, mode "default"
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
@@ -209,6 +221,7 @@ mode "launcher" {
 mode "session" {
     bindsym p exec poweroff
     bindsym r exec reboot
+    bindsym e exec i3-msg exit
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
@@ -225,7 +238,7 @@ bindsym $mod+p mode "session"
 #        status_command i3status
 #}
 
-gaps inner 4px
+gaps inner 1px
 gaps bottom 0px
 
 default_border pixel 2
@@ -240,17 +253,19 @@ client.background       #233535
 for_window [class="tddo-app"] floating enable
 
 assign [class="Code"] $ws2
-for_window [class="Code"] focus
 
-assign [class="Zathura"] $ws2
-for_window [class="Zathura"] focus
+assign [class="Arduino IDE"] $ws2
 
 assign [class="firefox"] $ws3
-for_window [class="firefox"] focus
 
 assign [class="Chromium"] $ws4
-for_window [class="Chromium"] focus
 
 assign [class="Thunar"] $ws5
-for_window [class="Thunar"] focus
 
+# Scratchpad section. tddo-app has been replaced by Super Productivity
+#for_window [class="tddo-app"] move scratchpad
+#bindsym $mod+grave [class="tddo-app"] scratchpad show
+#exec --no-startup-id tddo-app 
+
+for_window[instance="Godot_Editor"] floating enable
+for_window[instance="Godot_Engine"] floating enable,

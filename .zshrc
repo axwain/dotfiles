@@ -38,4 +38,4 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/nvm/init-nvm.sh
-eval "$(ssh-agent -s)"
+eval "$(ssh-agent -s)" > /dev/null
